@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Interest Calculator</title>
+    <style>
+        body{
+           font-family: arial , sans-serif ;
+           background-color: red ;
+           text-align: center ;
+           display : flex ; 
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        input {
+            width : 90% ;
+            padding : 8px ;
+            margin : 8px 0 ;
+        }
+         button {
+            padding: 10px 20px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: darkblue;
+        }
+
+        h3 {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Simple Interest Calculator</h2>
+
+    <input type="number" id="principal" placeholder="Principal Amount">
+    <input type="number" id="rate" placeholder="Rate (%)">
+    <input type="number" id="time" placeholder="Time (Years)">
+
+    <button onclick="calculateSI()">Calculate</button>
+
+    <h3 id="result"></h3>
+</div>
+
+<script>
+function calculateSI() {
+    let principal = Number(document.getElementById("principal").value);
+    let rate = Number(document.getElementById("rate").value);
+    let time = Number(document.getElementById("time").value);
+
+    let interest = (principal * rate * time) / 100;
+    let total = principal + interest;
+
+    document.getElementById("result").innerHTML =
+        "Simple Interest: ₹" + interest.toFixed(2) +
+        "<br>Total Amount: ₹" + total.toFixed(2);
+}
+</script>
+
+</body>
+</html>
+
+
+        
+        
+
+        
+     

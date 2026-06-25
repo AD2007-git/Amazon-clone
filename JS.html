@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // name 
+        var myName = "Aditya";
+        console.log(" My Name is " + myName );
+        console.log(typeof (myName));// tell the data type like string 
+        // number
+        var myNub = 29872575029 ;
+        console.log( " My mobile number is " + myNub) ;
+        console.log(typeof (myNub));// tell the data type  like number 
+        //null
+        var myMail = null ;
+        console.log( myName + " e-mal address is " + myMail ) ;
+        console.log(typeof(myMail)); // tell the data type like null
+        // bollean 
+        var isMarried = true ;
+        console.log(myName + " is married " + isMarried );
+        console.log(typeof(isMarried));
+        
+        // refrence or non-primitive data value type 
+        let myInfo ={
+            name: "Aditya" ,
+            age: 18 ,
+            mob: 2089750847254 ,
+            eMail : " adityaa@gmail.com " ,
+            isMarried : false ,
+            adress : null ,
+            branch : " CSE " ,
+            section : 18 
+    
+
+        };
+        console.log(myInfo);
+        console.log(myInfo.name);
+        console.log(Object.keys (myInfo).length);
+        // array in js
+
+        let studentInfo = [ 
+            " Aditya " ,
+            18 ,
+            false ,
+            " Aditya@gmail.com " ,
+            " GZB " ,
+
+        ];
+        console.log(studentInfo[2]) ;
+        console.log(studentInfo.length) ;
+        for(i=0 ; i<studentInfo.length ; i++){
+            console.log(studentInfo[i]) ;
+        }
+        // function - block of code 
+        function myCall(){
+            let num1 = 5 ;
+            let num2 = 10 ;
+            let result = num1 + num2 ;
+            console.log( " Addition of two number is " + result ) ;
+
+
+        }
+        myCall() ; 
+
+
+    </script>
+</body>
+</html>

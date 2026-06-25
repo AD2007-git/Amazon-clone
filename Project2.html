@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Amazon Clone</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #e3e6e6; }
+
+    
+    .navbar {
+      background: #131921;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .logo { font-size: 28px; font-weight: bold; color: #ff9900; }
+    .search-bar { display: flex; flex: 1; max-width: 600px; }
+    .search-bar input { width: 100%; padding: 10px; border: none; outline: none; font-size: 15px; }
+    .search-bar button { background: #febd69; border: none; padding: 10px 16px; cursor: pointer; font-weight: bold; }
+    .nav-links { color: white; font-size: 14px; cursor: pointer; }
+    .cart-btn { color: white; font-size: 14px; cursor: pointer; }
+
+   
+    .subnav {
+      background: #232f3e;
+      padding: 10px 20px;
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+    }
+    .subnav a { color: white; text-decoration: none; font-size: 14px; white-space: nowrap; }
+    .subnav a:hover { text-decoration: underline; }
+
+    .hero {
+      background: linear-gradient(to right, #f7f7f7, #dfe6e9);
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero h1 { font-size: 42px; color: #111; margin-bottom: 10px; }
+    .hero p { font-size: 24px; color: #333; }
+
+   
+    .products {
+      width: 95%;
+      margin: -60px auto 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 14px rgba(0,0,0,0.2); transition: 0.3s; }
+    .card h3 { font-size: 18px; margin-bottom: 12px; color: #111; }
+    .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .item { text-align: center; }
+    .item img { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; }
+    .item p { margin-top: 6px; font-size: 13px; color: #333; }
+    .see-more { display: inline-block; margin-top: 12px; color: #007185; font-size: 14px; text-decoration: none; }
+
+    
+    .footer { background: #131921; color: white; text-align: center; padding: 18px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+
+  
+  <div class="navbar">
+    <div class="logo">amazon</div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search Amazon..." />
+      <button onclick="searchItem()">Search</button>
+    </div>
+    <div class="nav-links">Hello, sign in</div>
+    <div class="nav-links">Returns & Orders</div>
+    <div class="cart-btn">🛒 Cart (<span id="cartCount">0</span>)</div>
+  </div>
+
+  
+  <div class="subnav" id="subnav"></div>
+
+ 
+  <div class="hero">
+    <div>
+      <h1>Smartphones</h1>
+      <p>Starting ₹6,499</p>
+    </div>
+  </div>
+
+
+  <div class="products" id="products"></div>
+
+
+  <div class="footer">
+    <p>Amazon Clone | Mini Project</p>
+  </div>
+
+  <script>
+
+   
+    var navLinks = ["All", "Fresh", "MX Player", "Sell", "Bestsellers", "Mobiles", "Today's Deals", "Customer Service", "Prime", "New Releases"];
+
+    var subnav = document.getElementById("subnav");
+
+    for (var i = 0; i < navLinks.length; i++) {
+      var a = document.createElement("a");
+      a.href = "#";
+      a.textContent = navLinks[i];
+      subnav.appendChild(a);
+    }
+
+
+    
+    var cards = [
+      {
+        title: "Decorate your home in style",
+        items: [
+          { img: "https://imgs.search.brave.com/laZU6B2mn2TKyvvzLvJIaw5gzGICQOHW02XYDSyeM7s/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMud29vZGVuc3Ry/ZWV0LmRlL2ltYWdl/L2NhY2hlL2RhdGEv/aG9tZS1kZWNvcnMv/Y3VzaGlvbnMvc3Vw/ZXItc29mdC1pdm9y/eS12ZWx2ZXQtY3Vz/aGlvbi1jb3ZlcnMt/c2V0LW9mLTItMTgt/MTgtaW5jaGVzL3Vw/ZGF0ZWQvdXBkYXRl/ZC8xLTc1MHg2NTAu/anBn", name: "Cushion covers" },
+          { img: "https://imgs.search.brave.com/_8b1BefWxh5HsSnodIfxy1-7gzM7c2YJRT7jIg8otyw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NzFadU1sR001WEwu/anBn", name: "Figurines" },
+          { img: "https://imgs.search.brave.com/haXnjhg76wjlqJOOOh1OcWzuJPtnMxJ2OO0lZCoiKVk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/OTFYVTF2ZnRHSUwu/anBn", name: "Home storage" },
+          { img: "https://imgs.search.brave.com/VfsK7hk1XEjFRCeXyMImWwQP5b-IqSDv3rOYzTlU418/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmVw/cHlnb29kcy5jb20v/d3AtY29udGVudC91/cGxvYWRzLzIwMjQv/MDcvQW1hem9uLUxp/Z2h0LUZpeHR1cmVz/LTMtNjgzeDEwMjQu/anBn", name: "Lighting" }
+        ]
+      },
+      {
+        title: "Bulk order discounts + up to 18% GST saving",
+        items: [
+          { img: "https://imgs.search.brave.com/wdCOXWvFUunCZY28Py6VZk9SaQnY_1W-rP73C7j-pdU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzM1L2Rm/L2M1LzM1ZGZjNTBi/M2U4YTQ5YWNkMTM2/NmJkNWEyYmNjMDk5/LmpwZw", name: "Laptops" },
+          { img: "https://imgs.search.brave.com/cIhVc87SnOTIiKsC498DPj5WCb3gGvJMOCr3tdUyIeE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuYWJvdXRhbWF6/b24uY29tL2RpbXM0/L2RlZmF1bHQvZGIy/ODkzOC8yMTQ3NDgz/NjQ3L3N0cmlwL3Ry/dWUvY3JvcC8xMjgw/eDcyMCswKzAvcmVz/aXplLzEyODB4NzIw/IS9xdWFsaXR5Lzkw/Lz91cmw9aHR0cHM6/Ly9hbWF6b24tYmxv/Z3MtYnJpZ2h0c3Bv/dC5zMy5hbWF6b25h/d3MuY29tL2VlLzYy/L2Q0MzAwNTlkNGMz/Njk5NDgzMWQxYmZm/MjAyNDQvaW5zdGFu/dC1wb3QtYWlyLWZy/eWVyLmpwZw", name: "Kitchen" },
+          { img: "https://imgs.search.brave.com/Ve4QVXNFt71KxVqC44M01KjQApxB6J_7fbE-EcENRio/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/ODFGUUpDNDROSUwu/anBn", name: "Office furniture" },
+          { img: "https://imgs.search.brave.com/Qrn2R9ycaIkSj3heYpYN5jugR0FZPfCRd4bR55lfpM4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9ibG9n/LnBsYXlvLmNvL3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDE3LzEy/L3J1bm5pbmctc2hv/ZXMtYW1hem9uLmpw/Zw", name: "Shoes" }
+        ]
+      },
+      {
+        title: "Appliances for your home | Up to 55% off",
+        items: [
+          { img: "https://imgs.search.brave.com/6TMdB-XTC2QLR84Ormw85T4BtkwDQE9WPnbi-E2w_Ck/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMtbmEuc3NsLWlt/YWdlcy1hbWF6b24u/Y29tL2ltYWdlcy9J/LzYxbHB3d2s1NVRM/LmpwZw", name: "Air conditioners" },
+          { img: "https://imgs.search.brave.com/zWIcm7LuHXI3wsxkvqlCzj5wkpHUBuczHhht5pfxlCc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NDFTWExpVWUyekwu/anBn", name: "Refrigerators" },
+          { img: "https://imgs.search.brave.com/OjbInmHM42sHJfuONCEpfu_vPvQ1c11COmd3k-rp1gk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS53aXJlZC5jb20v/cGhvdG9zLzVlYTcz/NjI3NWU5YjAzMDAw/ODNjOTg5MC9tYXN0/ZXIvd18xNjAwLGNf/bGltaXQvR2Vhci1B/bWF6b24tU21hcnQt/T3Zlbi1vcGVuLmpw/Zw", name: "Microwaves" },
+          { img: "https://imgs.search.brave.com/BJSlBbM4C2_0rsoIMMsfUoMPKJjEsUShrAf6cLh4feM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLmdhZGdldHMzNjBjZG4uY29tL2xhcmdlL3NhbXN1bmdfd2hpcmxwb29sX2FtYXpvbl8xNzY4ODE4NTU3MzE2LmpwZz9kb3duc2l6ZT05NTA6Kg", name: "Washing machines" }
+        ]
+      },
+      {
+        title: "Starting ₹149 | Headphones",
+        items: [
+          { img: "https://imgs.search.brave.com/lrl2qVLIeKbJ5fvZ4J8DxJn-YHpxp1BvEa8T7a5jjJI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93d3cu/Ym9hdC1saWZlc3R5/bGUuY29tL2Nkbi9z/aG9wL2ZpbGVzL0Fy/dGJvYXJkXzFfY29w/eV81Mjc2MDNhYS0w/NjY4LTRmOTItYTBh/NC01ZGVkNDY5ZDk5/MDhfMTgwMHgucG5n/P3Y9MTc1MjcyOTU3/Mw", name: "boAt" },
+          { img: "https://imgs.search.brave.com/zKFMjchccd-AbAMZCjOHU0loASjCzI6oXGSNIOQBsRM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NDFLSzltd052N0wu/anBn", name: "Boult" },
+          { img: "https://imgs.search.brave.com/ohE6nj2-puY3-5z9jBSkUTvf0_TGQ-ap6QczFU3iEZM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/NjFlSDNySVVnakwu/anBn", name: "Noise" },
+          { img: "https://imgs.search.brave.com/tn8b_Bo5uXG_P9576XZqJWwazVMHs4xesatBn7YXFXg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL1Mv/YXBsdXMtbWVkaWEt/bGlicmFyeS1zZXJ2/aWNlLW1lZGlhLzMw/NWQ1NWI5LTAwYTYt/NDNiNS04NWI4LTlk/MTRjNGNhNjc1Ni5f/X0NSMCwwLDk3MCw2/MDBfUFQwX1NYOTcw/X1YxX19fLmpwZw", name: "Zebronics" }
+        ]
+      }
+    ];
+
+
+   
+    var productsDiv = document.getElementById("products");
+
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+
+     
+      var cardDiv = document.createElement("div");
+      cardDiv.className = "card";
+
+      // Add title
+      var h3 = document.createElement("h3");
+      h3.textContent = card.title;
+      cardDiv.appendChild(h3);
+
+      
+      var grid = document.createElement("div");
+      grid.className = "card-grid";
+
+      for (var j = 0; j < card.items.length; j++) {
+        var item = card.items[j];
+
+        var itemDiv = document.createElement("div");
+        itemDiv.className = "item";
+
+        var img = document.createElement("img");
+        img.src = item.img;
+        img.alt = item.name;
+
+        var p = document.createElement("p");
+        p.textContent = item.name;
+
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(p);
+        grid.appendChild(itemDiv);
+      }
+
+      cardDiv.appendChild(grid);
+
+    
+      var link = document.createElement("a");
+      link.href = "#";
+      link.className = "see-more";
+      link.textContent = "See more";
+      cardDiv.appendChild(link);
+
+      productsDiv.appendChild(cardDiv);
+    }
+
+
+    
+    function searchItem() {
+      var input = document.getElementById("searchInput").value.trim();
+      if (input === "") {
+        alert("Please enter something to search.");
+      } else {
+        alert("You searched for: " + input);
+      }
+    }
+
+
+   
+    var cartCount = 0;
+
+    function addToCart() {
+      cartCount = cartCount + 1;
+      document.getElementById("cartCount").textContent = cartCount;
+    }
+
+  </script>
+
+</body>
+</html>
